@@ -88,8 +88,8 @@ const Contact = () => {
         animate={{ x: 0 }}
         transition={{ duration: 0.8, ease: "easeIn" }}
       >
-        <div className="flex items-center justify-center">
-          <h1 className="font-bold text-3xl md:text-5xl text-white">
+        <div className="flex items-center justify-center w-full">
+          <h1 className="font-bold text-3xl lg:text-5xl text-white">
             Contact Details
           </h1>
         </div>

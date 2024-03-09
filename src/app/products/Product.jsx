@@ -6,9 +6,9 @@ import { FaArrowLeft, FaArrowRight, FaBullseye } from "react-icons/fa";
 const Product = ({ products }) => {
   const [name, setName] = useState("");
   const [page, setPage] = useState(0);
-  const [productsPerPage, setProductsPerPage] = useState(8);
+  const [productsPerPage, setProductsPerPage] = useState(10);
   const [isSearching, setIsSearching] = useState(false);
-  // const [isActivePage, setIsActivePage] = useState(false);
+
   const filteredProducts = useMemo(() => {
     if (!name) {
       return products;
@@ -74,24 +74,28 @@ const Product = ({ products }) => {
         )}
       </div>
       <div className="flex items-center justify-around gap-10">
-        <div>
-          <button
-            className={`p-2 bg-white rounded-lg text-black font-bold ${
-              page < 1 ? "bg-gray-400" : ""
-            }`}
-            onClick={handlePrev}
-            disabled={page < 1 ? true : false}
-          >
-            <FaArrowLeft />
-          </button>
-        </div>
+        {!isSearching && (
+          <div>
+            <button
+              className={`p-2 bg-white rounded-lg text-black font-bold ${
+                page < 1 ? "bg-gray-400" : ""
+              }`}
+              onClick={handlePrev}
+              disabled={page < 1 ? true : false}
+            >
+              <FaArrowLeft />
+            </button>
+          </div>
+        )}
 
         <div className="flex items-center justify-around  rounded-lg bg-white">
           {!isSearching &&
             [...Array(totalPages)].map((_, i) => (
               <div key={i} className={`border border-black `}>
                 <button
-                  className={`p-2 text-black font-bold `}
+                  className={`p-2 text-black font-bold ${
+                    page == i ? "text-blue-500" : ""
+                  }`}
                   value={i + 1}
                   onClick={handlePagination}
                 >
@@ -101,16 +105,18 @@ const Product = ({ products }) => {
             ))}
         </div>
 
-        <div>
-          <button
-            className={`p-2 rounded-lg bg-white text-black font-bold ${
-              page === totalPages - 1 && "bg-gray-400"
-            }`}
-            onClick={handleNext}
-          >
-            <FaArrowRight />
-          </button>
-        </div>
+        {!isSearching && (
+          <div>
+            <button
+              className={`p-2 rounded-lg bg-white text-black font-bold ${
+                page === totalPages - 1 && "bg-gray-400"
+              }`}
+              onClick={handleNext}
+            >
+              <FaArrowRight />
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

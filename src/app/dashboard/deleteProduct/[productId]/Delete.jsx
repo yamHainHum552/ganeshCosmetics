@@ -45,7 +45,13 @@ const Delete = ({ result }) => {
       </div>
       {/* Image */}
       <div>
-        <Image src={"/contact.png"} width={400} height={400} />
+        <Image
+          src={"/contact.png"}
+          width={400}
+          height={400}
+          alt="Product Image"
+          priority="true"
+        />
       </div>
       {/* Price */}
       <div className="flex gap-2 items-center justify-center">

@@ -4,11 +4,11 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 
 const AddProduct = () => {
-  const [name, setName] = useState();
-  const [retailPrice, setretailPrice] = useState();
-  const [wholesalePrice, setWholesalePrice] = useState();
-  const [category, setCategory] = useState();
-  const [description, setDescription] = useState();
+  const [name, setName] = useState("");
+  const [retailPrice, setretailPrice] = useState("");
+  const [wholesalePrice, setWholesalePrice] = useState("");
+  const [category, setCategory] = useState("");
+  const [description, setDescription] = useState("");
   const addProduct = async (e) => {
     e.preventDefault();
     let product = await fetch("http://localhost:3000/api/products", {
@@ -43,6 +43,7 @@ const AddProduct = () => {
         <h1 className="font-bold text-3xl">Add Product</h1>
         <form
           action=""
+          autoComplete="off"
           className="flex flex-col gap-5 items-center justify-center text-black"
         >
           <input

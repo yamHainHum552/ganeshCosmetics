@@ -2,6 +2,7 @@
 // import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 const Update = ({ product }) => {
   const [name, setName] = useState(product.name);
@@ -9,6 +10,7 @@ const Update = ({ product }) => {
   const [wholesalePrice, setWholesalePrice] = useState(product.wholesalePrice);
   const [category, setCategory] = useState(product.category);
   const [description, setDescription] = useState(product.description);
+  const router = useRouter();
 
   const handleEdit = async (e) => {
     // const router = useRouter();
@@ -30,7 +32,7 @@ const Update = ({ product }) => {
       toast.error("Failed to update the product");
     } else {
       toast.success("Updated Successfully");
-      // router.push("/dashboard/editProduct");
+      router.push("/dashboard/editProduct");
     }
   };
 

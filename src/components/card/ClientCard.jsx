@@ -7,7 +7,14 @@ const ClientCard = ({ name, price, productId, work, link }) => {
     <div className="hover:scale-105 transition-all ease-in duration-75 flex flex-col gap-5 bg-white shadow-lg text-black w-[250px] items-center justify-center rounded-md">
       {/* Card Image */}
       <div>
-        <Image width={200} height={100} src={"/contact.png"} alt="Card Image" />
+        <Image
+          width={200}
+          height={100}
+          src={"/contact.png"}
+          alt="Card Image"
+          className="w-auto h-auto"
+          priority="true"
+        />
       </div>
       {/* Naming and Price */}
       <div className="flex gap-2 items-center justify-center">

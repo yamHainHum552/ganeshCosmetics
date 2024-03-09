@@ -39,6 +39,7 @@ const Login = () => {
         <input
           type="text"
           placeholder="Username"
+          autoComplete="off"
           value={userName}
           onChange={(e) => setUserName(e.target.value)}
           className="p-4 text-black rounded-md border-none outline-none bg-base-400 w-full"

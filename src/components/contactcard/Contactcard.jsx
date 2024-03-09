@@ -4,7 +4,7 @@ import { IoMail } from "react-icons/io5";
 import { FaPen } from "react-icons/fa";
 const Contactcard = () => {
   return (
-    <div className=" bg-white flex w-full gap-5 rounded-md p-2 justify-around items-center hover:scale-105 transition-all ease-linear">
+    <div className=" bg-white flex  gap-5 rounded-md p-2 justify-around items-center hover:scale-105 transition-all ease-linear">
       <div className="flex flex-col gap-7 md:gap-5 items-center justify-center h-full ">
         <FaLocationDot />
         <FaPhoneAlt />

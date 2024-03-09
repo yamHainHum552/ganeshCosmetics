@@ -20,13 +20,13 @@ const ClientNav = () => {
   useEffect(() => {
     const admin = async () => {
       try {
-        const response = await fetch("http://localhost:3000/api/users/login", {
-          method: "GET",
-        });
+        const response = await fetch("http://localhost:3000/api/users/login");
         const result = await response.json();
 
         if (result.success) {
           setIsAdmin(true);
+        } else {
+          setIsAdmin(false);
         }
       } catch (error) {
         console.log(error);
@@ -48,10 +48,14 @@ const ClientNav = () => {
     }
   };
   const pathName = usePathname();
-  // isAdmin && links.push({ url: "/dashboard", title: "Dashboard" });
 
   const handleOpen = () => {
     setOpen(!open);
+    if (!open) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "visible";
+    }
   };
   const topVariants = {
     closed: {
@@ -170,10 +174,9 @@ const ClientNav = () => {
             animate="opened"
           >
             {links.map((link) => (
-              <motion.div variants={listItemVariants}>
+              <motion.div variants={listItemVariants} key={link.title}>
                 <Link
                   href={link.url}
-                  key={link.url}
                   className={`${pathName == link.url ? "text-blue-500" : ""}`}
                 >
                   {link.title}
