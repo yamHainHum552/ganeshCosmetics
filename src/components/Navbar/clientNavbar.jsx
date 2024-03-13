@@ -1,10 +1,10 @@
 "use client";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-
 import { usePathname, useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { toast } from "react-toastify";
+import { MdLogout } from "react-icons/md";
 
 const links = [
   { url: "/", title: "Home" },
@@ -16,11 +16,15 @@ const links = [
 const ClientNav = () => {
   const [open, setOpen] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
+
   const router = useRouter();
+
   useEffect(() => {
     const admin = async () => {
       try {
-        const response = await fetch("http://localhost:3000/api/users/login");
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_SERVER}/api/users/login`
+        );
         const result = await response.json();
 
         if (result.success) {
@@ -36,7 +40,9 @@ const ClientNav = () => {
   }, []);
   const handleLogout = async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/users/logout");
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_SERVER}/api/users/logout`
+      );
       const result = await response.json();
       if (result.success) {
         setIsAdmin(false);
@@ -104,7 +110,10 @@ const ClientNav = () => {
     },
   };
   return (
-    <div className="h-24 flex items-center justify-between px-4 sm:px-8 md:px-12 lg:px-20 xl:px-48 ">
+    <div
+      className={`h-24 flex items-center justify-between  px-4 sm:px-8 md:px-12 
+      `}
+    >
       {/* page logo */}
       <div className="  lg:flex  lg:justify-center ">
         <Link
@@ -115,7 +124,7 @@ const ClientNav = () => {
           <span className="text-white  text-xl sm:text-3xl">C</span>
         </Link>
       </div>
-      <div className="hidden md:flex gap-5 w-1/3">
+      <div className="hidden lg:flex gap-5 w-1/2">
         {links.map((link) => (
           <Link
             href={link.url}
@@ -127,7 +136,7 @@ const ClientNav = () => {
             {link.title}
           </Link>
         ))}
-        {isAdmin && (
+        {isAdmin ? (
           <div className="flex items-center justify-center gap-5">
             <Link
               href="/dashboard"
@@ -137,15 +146,31 @@ const ClientNav = () => {
             >
               Dashboard
             </Link>
-            <button className="text-blue-800 " onClick={handleLogout}>
+            <button
+              onClick={handleLogout}
+              className="text-white flex items-center font-bold gap-2"
+            >
               Logout
+              <MdLogout className="text-white" />
             </button>
           </div>
+        ) : (
+          <motion.div
+            variants={listItemVariants}
+            className="flex items-center justify-center"
+          >
+            <Link
+              href="/login"
+              className={`${pathName == "/login" ? "text-blue-800" : ""} `}
+            >
+              Admin Login
+            </Link>
+          </motion.div>
         )}
       </div>
 
       {/* responsive view */}
-      <div className="flex md:hidden h-full items-center">
+      <div className="flex lg:hidden h-full items-center">
         <button
           className="w-10 h-8 flex flex-col items-center justify-around  z-50 relative"
           onClick={handleOpen}
@@ -183,7 +208,7 @@ const ClientNav = () => {
                 </Link>
               </motion.div>
             ))}
-            {isAdmin && (
+            {isAdmin ? (
               <div className="flex flex-col gap-5 items-center justify-center">
                 <motion.div variants={listItemVariants}>
                   <Link
@@ -196,11 +221,24 @@ const ClientNav = () => {
                   </Link>
                 </motion.div>
                 <motion.div variants={listItemVariants}>
-                  <button className="text-blue-500 " onClick={handleLogout}>
+                  <button
+                    onClick={handleLogout}
+                    className="text-white flex items-center font-bold gap-2"
+                  >
                     Logout
+                    <MdLogout className="text-white" />
                   </button>
                 </motion.div>
               </div>
+            ) : (
+              <motion.div variants={listItemVariants}>
+                <Link
+                  href="/login"
+                  className={`${pathName == "/login" ? "text-blue-800" : ""}`}
+                >
+                  Admin Login
+                </Link>
+              </motion.div>
             )}
           </motion.div>
         ) : (

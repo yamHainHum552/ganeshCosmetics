@@ -1,5 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 const ClientHero = () => {
   return (
@@ -19,7 +20,7 @@ const ClientHero = () => {
           animate={{ x: 0, opacity: 1 }}
           className="text-center items-center "
         >
-          <h1 className="text-5xl font-bold sm:text-7xl text-white lg:text-8xl">
+          <h1 className="text-7xl font-bold  text-white lg:text-8xl">
             Cosmetics
           </h1>
         </motion.div>
@@ -32,12 +33,23 @@ const ClientHero = () => {
           transition={{ duration: 1 }}
           className="text-center items-center "
         >
-          <h1 className="text-xl font-bold sm:text-3xl text-white lg:text-5xl flex flex-col md:flex-row">
+          <h1 className="text-3xl font-bold sm:text-5xl text-white lg:text-5xl flex flex-col md:flex-row">
             <span>Proprietor-</span>
             <span>Purna Pr. Guragain</span>
           </h1>
         </motion.div>
       </div>
+      <motion.div
+        className="flex items-center justify-center gap-5"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1 }}
+      >
+        <h1 className="font-semi-bold text-xl">View Products: </h1>
+        <button className="bg-blue-600 text-white font-bold hover:bg-blue-700  p-2 rounded-lg ">
+          <Link href="/products">Lets Go&#8594;</Link>
+        </button>
+      </motion.div>
     </div>
   );
 };

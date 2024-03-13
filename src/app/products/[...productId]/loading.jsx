@@ -1,8 +1,8 @@
 import Load from "@/components/loading/Load";
 import React from "react";
 
-const Loading = () => {
+const loading = () => {
   return <Load />;
 };
 
-export default Loading;
+export default loading;

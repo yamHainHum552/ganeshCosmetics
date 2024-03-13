@@ -36,6 +36,7 @@ const Product = ({ products }) => {
                   : product.name.toUpperCase()
               }
               price={product.retailPrice}
+              image={product.image}
               productId={product._id}
               work="Delete"
               link="/dashboard/deleteProduct"

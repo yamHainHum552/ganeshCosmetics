@@ -1,24 +1,37 @@
-import React from "react";
+"use client";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { toast } from "react-toastify";
 
-const getProduct = async (id) => {
-  try {
-    const data = await fetch(`http://localhost:3000/api/products/${id}`);
+const Delete = ({ result, id }) => {
+  const router = useRouter();
+  const handleDelete = async () => {
+    const data = await fetch(
+      `${process.env.NEXT_PUBLIC_SERVER}/api/products/${result._id}/${id}`,
+      {
+        method: "DELETE",
+        cache: "no-cache",
+      }
+    );
     if (!data.ok) {
-      throw new Error("Error fetching the product");
+      toast.error("Failed to delete the product");
+    } else {
+      toast.success("Deleted Successfully");
+      router.push("/dashboard/deleteProduct");
     }
-    const product = await data.json();
-
-    return product;
-  } catch (error) {
-    console.log(error);
-  }
-};
-const page = async ({ params }) => {
-  const { result } = await getProduct(params.productId);
-
+  };
   return (
     <div className="flex flex-col gap-5 w-full h-full items-center justify-center">
+      {/* Delete Product */}
+      <div className="flex items-center gap-4">
+        <h1 className="text-white text-xl font-bold">Click here to Delete:</h1>
+        <button
+          onClick={handleDelete}
+          className="bg-white font-bold p-2 text-black  rounded-md"
+        >
+          Delete
+        </button>
+      </div>
       {/* Name and Category */}
       <div className="flex gap-5 md:gap-10 items-center justify-center">
         <div className="flex flex-col gap-3">
@@ -33,7 +46,7 @@ const page = async ({ params }) => {
       {/* Image */}
       <div>
         <Image
-          src={"/contact.png"}
+          src={result.image}
           width={400}
           height={400}
           alt="Product Image"
@@ -52,12 +65,4 @@ const page = async ({ params }) => {
   );
 };
 
-export default page;
-export async function generateMetadata({ params }) {
-  const { result } = await getProduct(params.productId);
-  return {
-    title: `${result.name} | GC`,
-    description:
-      "This is the Products page of Ganesh Cosmetics. Here you can watch out the Cosmetics Items ",
-  };
-}
+export default Delete;

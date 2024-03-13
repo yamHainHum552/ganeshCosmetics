@@ -1,12 +1,12 @@
 "use client";
 import Card from "@/components/card/Card";
 import React, { useState, useMemo } from "react";
-import { FaArrowLeft, FaArrowRight, FaBullseye } from "react-icons/fa";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
-const Product = ({ products }) => {
+const Products = ({ products }) => {
   const [name, setName] = useState("");
   const [page, setPage] = useState(0);
-  const [productsPerPage, setProductsPerPage] = useState(10);
+  const [productsPerPage, setProductsPerPage] = useState(30);
   const [isSearching, setIsSearching] = useState(false);
 
   const filteredProducts = useMemo(() => {
@@ -59,12 +59,13 @@ const Product = ({ products }) => {
               <Card
                 key={product._id}
                 name={
-                  product.name.length > 8
-                    ? product.name.slice(0, 6).concat("...").toUpperCase()
+                  product.name.length > 15
+                    ? product.name.slice(0, 10).concat("...").toUpperCase()
                     : product.name.toUpperCase()
                 }
                 price={product.retailPrice}
                 productId={product._id}
+                image={product.image}
                 work="View Product"
                 link="products"
               />
@@ -73,53 +74,58 @@ const Product = ({ products }) => {
           <p>No Results Found</p>
         )}
       </div>
-      <div className="flex items-center justify-around gap-10">
-        {!isSearching && (
-          <div>
-            <button
-              className={`p-2 bg-white rounded-lg text-black font-bold ${
-                page < 1 ? "bg-gray-400" : ""
-              }`}
-              onClick={handlePrev}
-              disabled={page < 1 ? true : false}
-            >
-              <FaArrowLeft />
-            </button>
-          </div>
-        )}
+      {products.length > 0 && (
+        <div className="flex items-center justify-around gap-10">
+          {!isSearching && (
+            <div>
+              <button
+                className={`p-2 bg-white rounded-lg text-black font-bold ${
+                  page < 1 ? "bg-gray-400" : ""
+                }`}
+                onClick={handlePrev}
+                disabled={page < 1 ? true : false}
+              >
+                <FaArrowLeft />
+              </button>
+            </div>
+          )}
 
-        <div className="flex items-center justify-around  rounded-lg bg-white">
-          {!isSearching &&
-            [...Array(totalPages)].map((_, i) => (
-              <div key={i} className={`border border-black `}>
-                <button
-                  className={`p-2 text-black font-bold ${
-                    page == i ? "text-blue-500" : ""
-                  }`}
-                  value={i + 1}
-                  onClick={handlePagination}
+          <div className="flex items-center justify-around  rounded-lg bg-white">
+            {!isSearching &&
+              [...Array(totalPages)].map((_, i) => (
+                <div
+                  key={i}
+                  className={`border border-black ${
+                    page == i ? "bg-gray-400 text-black" : ""
+                  } `}
                 >
-                  {i + 1}
-                </button>
-              </div>
-            ))}
-        </div>
-
-        {!isSearching && (
-          <div>
-            <button
-              className={`p-2 rounded-lg bg-white text-black font-bold ${
-                page === totalPages - 1 && "bg-gray-400"
-              }`}
-              onClick={handleNext}
-            >
-              <FaArrowRight />
-            </button>
+                  <button
+                    className={`p-2  font-bold }`}
+                    value={i + 1}
+                    onClick={handlePagination}
+                  >
+                    {i + 1}
+                  </button>
+                </div>
+              ))}
           </div>
-        )}
-      </div>
+
+          {!isSearching && (
+            <div>
+              <button
+                className={`p-2 rounded-lg bg-white text-black font-bold ${
+                  page === totalPages - 1 && "bg-gray-400"
+                }`}
+                onClick={handleNext}
+              >
+                <FaArrowRight />
+              </button>
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 };
 
-export default Product;
+export default Products;

@@ -12,13 +12,16 @@ const Login = () => {
   const handleLogin = async () => {
     try {
       setIsLoading(true);
-      const response = await fetch("http://localhost:3000/api/users/login", {
-        method: "POST",
-        body: JSON.stringify({
-          userName,
-          password,
-        }),
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_SERVER}/api/users/login`,
+        {
+          method: "POST",
+          body: JSON.stringify({
+            userName,
+            password,
+          }),
+        }
+      );
       const result = await response.json();
       if (result.success) {
         window.location.reload();
@@ -34,7 +37,7 @@ const Login = () => {
   };
   return (
     <div className="flex flex-col gap-5 border-white rounded-md p-3 border-2 items-center justify-around shadow-md shadow-white">
-      <h1 className="text-5xl font-bold">Login</h1>
+      <h1 className="text-3xl md:text-5xl font-bold">Admin Login</h1>
       <div className="flex flex-col gap-5">
         <input
           type="text"
@@ -53,7 +56,7 @@ const Login = () => {
         />
       </div>
       <button
-        className="bg-white rounded-lg text-black p-2 font-bold"
+        className="bg-blue-600 hover:bg-blue-700 rounded-lg text-white p-2 font-bold"
         onClick={handleLogin}
       >
         {isLoading ? "Loading" : "Login"}

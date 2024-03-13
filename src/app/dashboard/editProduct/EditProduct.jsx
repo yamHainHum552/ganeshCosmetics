@@ -37,6 +37,7 @@ const Product = ({ products }) => {
               }
               price={product.retailPrice}
               productId={product._id}
+              image={product.image}
               work="Edit"
               link="/dashboard/editProduct"
             />

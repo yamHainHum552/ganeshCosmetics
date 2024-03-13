@@ -2,35 +2,39 @@
 
 import Contactcard from "@/components/contactcard/Contactcard";
 import { motion } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { toast } from "react-toastify";
 import emailjs from "@emailjs/browser";
 
 const Contact = () => {
   const form = useRef();
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
 
-  const sendEmail = (e) => {
+  const sendEmail = async (e) => {
     e.preventDefault();
+    if (!name || !phone || !message || !email) {
+      toast.error("Please don't leave the fields empty");
+      return null;
+    }
 
-    emailjs
+    await emailjs
       .sendForm(
         process.env.NEXT_PUBLIC_SERVICE_ID,
-        process.env.NEXT_TEMPLATE_ID,
+        process.env.NEXT_PUBLIC_TEMPLATE_ID,
         form.current,
         {
           publicKey: process.env.NEXT_PUBLIC_KEY,
         }
       )
-      .then(
-        () => {
-          console.log("hello");
-          toast.success("Message Sent Successfully!");
-          form.current.reset();
-        },
-        (error) => {
-          toast.error(error.message);
-        }
-      );
+      .then(() => {
+        console.log("hello");
+        toast.success("Message Sent Successfully!");
+        form.current.reset();
+      })
+      .catch((err) => toast.error(err.message));
   };
   return (
     <div className=" flex justify-center items-center w-full gap-5 text-black flex-wrap">
@@ -53,18 +57,24 @@ const Contact = () => {
             placeholder="Name and Surname"
             name="from_name"
             className="p-4 rounded-md border-none outline-none bg-base-400 w-full"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
           />
           <input
             type="email"
             placeholder="Your Email Address"
             name="user_email"
             className="p-4 rounded-md border-none outline-none bg-base-400 w-full"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
           <input
             type="text"
             placeholder="Phone Number"
             name="user_phone"
             className="p-4 rounded-md border-none outline-none bg-base-400 w-full"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
           />
           <textarea
             id=""
@@ -73,9 +83,11 @@ const Contact = () => {
             name="message"
             placeholder="message"
             className="p-4 rounded-md border-none outline-none bg-base-400"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
           ></textarea>
           <button
-            className="btn btn-primary text-black font-bold bg-white p-2  rounded-md"
+            className="btn btn-primary text-white font-bold bg-blue-600 hover:bg-blue-700 p-2  rounded-md"
             type="submit"
           >
             Send

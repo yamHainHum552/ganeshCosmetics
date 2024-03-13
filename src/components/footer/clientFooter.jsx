@@ -17,7 +17,7 @@ const ClientFooter = () => {
   return (
     <motion.div
       className="flex flex-col items-center justify-center w-full gap-4"
-      initial={{ y: "100vh" }}
+      initial={{ y: "50vh" }}
       animate={isFooterInView ? { y: 0 } : ""}
       ref={footer}
     >
@@ -35,7 +35,10 @@ const ClientFooter = () => {
             </Link>
           ))}
         </div>
-        <Map />
+        <div className="flex flex-col gap-5 w-full md:w-1/2 items-center justify-center">
+          <h1>Rate Us Now on Google Maps</h1>
+          <Map />
+        </div>
       </div>
       {/* Copy right */}
       <div className="flex justify-around">

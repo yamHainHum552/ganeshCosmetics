@@ -1,8 +1,8 @@
 import React from "react";
-import Product from "./Product";
+import Product from "./Products";
 
 async function getProducts() {
-  const data = await fetch("http://localhost:3000/api/products", {
+  const data = await fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/products`, {
     cache: "no-cache",
   });
   if (!data.ok) {

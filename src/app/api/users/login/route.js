@@ -44,7 +44,8 @@ export async function POST(req, res) {
 
 export async function GET(req) {
   try {
-    const token = req.cookies.get("token")?.value || "";
+    const token = (await req.cookies.get("token")?.value) || "";
+
     if (!token) {
       return NextResponse.json({ result: "No User Found", success: false });
     }

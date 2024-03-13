@@ -1,7 +1,7 @@
 import React from "react";
 import ClientCard from "./ClientCard";
 
-const Card = ({ name, price, productId, work, link }) => {
+const Card = ({ name, price, productId, work, link, image }) => {
   return (
     <>
       <ClientCard
@@ -10,6 +10,7 @@ const Card = ({ name, price, productId, work, link }) => {
         productId={productId}
         work={work}
         link={link}
+        image={image}
       />
     </>
   );
