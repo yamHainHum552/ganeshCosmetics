@@ -37,9 +37,9 @@ const Contact = () => {
       .catch((err) => toast.error(err.message));
   };
   return (
-    <div className=" flex justify-center items-center w-full gap-5 text-black flex-wrap">
+    <div className=" flex justify-evenly items-center w-full gap-5 text-black flex-wrap">
       <motion.div
-        className=" flex items-center md:w-1/2 w-full justify-center"
+        className=" flex items-center md:w-1/3 w-full justify-center"
         initial={{ x: "-200vw" }}
         animate={{ x: 0 }}
         transition={{ duration: 0.8 }}
@@ -94,6 +94,12 @@ const Contact = () => {
           </button>
         </form>
       </motion.div>
+      <motion.div
+        className="h-[500px] w-[1px] bg-white hidden lg:block"
+        initial={{ y: "-200vh" }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.8, ease: "easeIn" }}
+      ></motion.div>
       <motion.div
         className=" md:w-1/3 flex flex-col gap-5  justify-center "
         initial={{ x: "200vw" }}

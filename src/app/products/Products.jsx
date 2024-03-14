@@ -6,7 +6,7 @@ import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 const Products = ({ products }) => {
   const [name, setName] = useState("");
   const [page, setPage] = useState(0);
-  const [productsPerPage, setProductsPerPage] = useState(30);
+  const [productsPerPage, setProductsPerPage] = useState(50);
   const [isSearching, setIsSearching] = useState(false);
 
   const filteredProducts = useMemo(() => {
@@ -76,7 +76,7 @@ const Products = ({ products }) => {
       </div>
       {products.length > 0 && (
         <div className="flex items-center justify-around gap-10">
-          {!isSearching && (
+          {!isSearching && page >= 1 && (
             <div>
               <button
                 className={`p-2 bg-white rounded-lg text-black font-bold ${
@@ -90,7 +90,7 @@ const Products = ({ products }) => {
             </div>
           )}
 
-          <div className="flex items-center justify-around  rounded-lg bg-white">
+          <div className="flex items-center justify-around  rounded-lg bg-white text-black">
             {!isSearching &&
               [...Array(totalPages)].map((_, i) => (
                 <div
@@ -110,12 +110,10 @@ const Products = ({ products }) => {
               ))}
           </div>
 
-          {!isSearching && (
+          {!isSearching && page < totalPages - 1 && (
             <div>
               <button
-                className={`p-2 rounded-lg bg-white text-black font-bold ${
-                  page === totalPages - 1 && "bg-gray-400"
-                }`}
+                className={`p-2 rounded-lg bg-white text-black font-bold `}
                 onClick={handleNext}
               >
                 <FaArrowRight />
