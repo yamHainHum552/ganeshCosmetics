@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { connectToMongo } from "@/models/db";
 import { Admin } from "@/models/userModel";
 import { NextResponse } from "next/server";

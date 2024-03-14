@@ -2,6 +2,7 @@
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { toast } from "react-toastify";
+import { useEffect } from "react";
 
 const Delete = ({ result, id }) => {
   const router = useRouter();
@@ -20,6 +21,7 @@ const Delete = ({ result, id }) => {
       router.push("/dashboard/deleteProduct");
     }
   };
+
   return (
     <div className="flex flex-col gap-5 w-full h-full items-center justify-center">
       {/* Delete Product */}

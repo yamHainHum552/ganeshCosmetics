@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { connectToMongo } from "@/models/db";
 import { Product } from "@/models/productModel";
 import { uploadOnCloudinary } from "@/utils/cloudinary";

@@ -1,13 +1,28 @@
 "use client";
 import Card from "@/components/card/Card";
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
-const Products = ({ products }) => {
+const Products = () => {
   const [name, setName] = useState("");
   const [page, setPage] = useState(0);
   const [productsPerPage, setProductsPerPage] = useState(50);
   const [isSearching, setIsSearching] = useState(false);
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    async function getProducts() {
+      const data = await fetch(
+        `${process.env.NEXT_PUBLIC_SERVER}/api/products`
+      );
+      if (!data.ok) {
+        throw new Error("Cannot find products");
+      }
+      const products = await data.json();
+      setProducts(products);
+    }
+    getProducts();
+  }, []);
 
   const filteredProducts = useMemo(() => {
     if (!name) {

@@ -1,9 +1,21 @@
 "use client";
 import Card from "@/components/card/Card";
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 
-const Product = ({ products }) => {
+const Product = () => {
   const [name, setName] = useState("");
+  const [products, setProducts] = useState([]);
+  useEffect(() => {
+    async function getProducts() {
+      const data = await fetch(`http://localhost:3000/api/products`);
+      if (!data.ok) {
+        throw new Error("Cannot find products");
+      }
+      const products = await data.json();
+      setProducts(products);
+    }
+    getProducts();
+  }, []);
   const filteredProducts = useMemo(() => {
     if (!name) {
       return products;
