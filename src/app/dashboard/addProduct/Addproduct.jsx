@@ -1,8 +1,9 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "react-toastify";
-
+import { FaArrowLeft } from "react-icons/fa";
 const AddProduct = () => {
   const [name, setName] = useState("");
   const [retailPrice, setretailPrice] = useState("");
@@ -11,6 +12,7 @@ const AddProduct = () => {
   const [description, setDescription] = useState("");
   const [image, setImage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
   const addProduct = async (e) => {
     e.preventDefault();
     setIsLoading(true);
@@ -62,10 +64,16 @@ const AddProduct = () => {
       }
     } else toast.error("Image should be less than 1MB");
   };
-
+  const handleBack = () => {
+    router.push("/dashboard");
+  };
   return (
     <div className="flex flex-col md:flex-row  items-center justify-center ">
       {/* Add Product */}
+      <div className="flex md:hidden gap-5 items-center justify-center">
+        <h1 className="text-xl font-bold">Go Back:</h1>
+        <FaArrowLeft className="font-bold text-xl" onClick={handleBack} />
+      </div>
       <div className="flex flex-col gap-4 items-center">
         <h1 className="font-bold text-3xl">Add Product</h1>
         <form

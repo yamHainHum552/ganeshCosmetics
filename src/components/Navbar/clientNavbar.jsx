@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import { motion } from "framer-motion";
+import { delay, motion } from "framer-motion";
 import { toast } from "react-toastify";
 import { MdLogout } from "react-icons/md";
 
@@ -18,6 +18,7 @@ const ClientNav = () => {
   const [isAdmin, setIsAdmin] = useState(false);
 
   const router = useRouter();
+  const pathName = usePathname();
 
   useEffect(() => {
     const admin = async () => {
@@ -53,16 +54,17 @@ const ClientNav = () => {
       toast.error(error.message);
     }
   };
-  const pathName = usePathname();
 
   const handleOpen = () => {
     setOpen(!open);
+
     if (!open) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "visible";
     }
   };
+
   const topVariants = {
     closed: {
       rotate: 0,
@@ -170,7 +172,7 @@ const ClientNav = () => {
       </div>
 
       {/* responsive view */}
-      <div className="flex lg:hidden h-full items-center">
+      <div className="flex lg:hidden h-full items-center ">
         <button
           className="w-10 h-8 flex flex-col items-center justify-around  z-50 relative"
           onClick={handleOpen}
@@ -193,10 +195,11 @@ const ClientNav = () => {
         </button>
         {open ? (
           <motion.div
-            className="absolute overflow-hidden top-0 left-0 bg-black text-white h-full w-full flex flex-col items-center gap-8 text-4xl justify-center overflow-x-hidden overflow-y-hidden z-20"
+            className="absolute overflow-hidden top-0 left-0 bg-black text-white h-full w-full flex flex-col items-center gap-8 text-4xl justify-center z-20"
             variants={listVariants}
             initial="closed"
             animate="opened"
+            transition={{ duration: 1 }}
           >
             {links.map((link) => (
               <motion.div variants={listItemVariants} key={link.title}>

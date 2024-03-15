@@ -37,7 +37,7 @@ const Contact = () => {
       .catch((err) => toast.error(err.message));
   };
   return (
-    <div className=" flex justify-evenly items-center w-full gap-5 text-black flex-wrap">
+    <div className=" flex justify-evenly items-center w-full gap-5 text-black flex-wrap overflow-hidden">
       <motion.div
         className=" flex items-center md:w-1/3 w-full justify-center"
         initial={{ x: "-200vw" }}

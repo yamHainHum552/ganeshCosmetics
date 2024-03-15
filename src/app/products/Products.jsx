@@ -1,7 +1,9 @@
 "use client";
 import Card from "@/components/card/Card";
+import Load from "@/components/loading/Load";
 import React, { useState, useMemo, useEffect } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 const Products = () => {
   const [name, setName] = useState("");
@@ -9,16 +11,19 @@ const Products = () => {
   const [productsPerPage, setProductsPerPage] = useState(50);
   const [isSearching, setIsSearching] = useState(false);
   const [products, setProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     async function getProducts() {
+      setIsLoading(true);
       const data = await fetch(
         `${process.env.NEXT_PUBLIC_SERVER}/api/products`
       );
       if (!data.ok) {
-        throw new Error("Cannot find products");
+        toast.error("Error fetching products");
       }
       const products = await data.json();
+      setIsLoading(false);
       setProducts(products);
     }
     getProducts();
@@ -63,32 +68,36 @@ const Products = () => {
         />
       </div>
 
-      <div className="flex flex-wrap gap-5 items-center justify-center mt-12">
-        {filteredProducts.length > 0 ? (
-          filteredProducts
-            .slice(
-              page * productsPerPage,
-              page * productsPerPage + productsPerPage
-            )
-            .map((product) => (
-              <Card
-                key={product._id}
-                name={
-                  product.name.length > 15
-                    ? product.name.slice(0, 10).concat("...").toUpperCase()
-                    : product.name.toUpperCase()
-                }
-                price={product.retailPrice}
-                productId={product._id}
-                image={product.image}
-                work="View Product"
-                link="products"
-              />
-            ))
-        ) : (
-          <p>No Results Found</p>
-        )}
-      </div>
+      {!isLoading ? (
+        <div className="flex flex-wrap gap-5 items-center justify-center mt-12">
+          {filteredProducts.length > 0 ? (
+            filteredProducts
+              .slice(
+                page * productsPerPage,
+                page * productsPerPage + productsPerPage
+              )
+              .map((product) => (
+                <Card
+                  key={product._id}
+                  name={
+                    product.name.length > 15
+                      ? product.name.slice(0, 10).concat("...").toUpperCase()
+                      : product.name.toUpperCase()
+                  }
+                  price={product.retailPrice}
+                  productId={product._id}
+                  image={product.image}
+                  work="View Product"
+                  link="products"
+                />
+              ))
+          ) : (
+            <p>No Results Found</p>
+          )}
+        </div>
+      ) : (
+        <Load />
+      )}
       {products.length > 0 && (
         <div className="flex items-center justify-around gap-10">
           {!isSearching && page >= 1 && (

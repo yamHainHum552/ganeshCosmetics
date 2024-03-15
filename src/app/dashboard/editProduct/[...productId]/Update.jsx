@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
+import { FaArrowLeft } from "react-icons/fa";
 
 const Update = ({ product, id }) => {
   const imageName =
@@ -61,10 +62,18 @@ const Update = ({ product, id }) => {
       }
     } else toast.error("Image should be less than 1MB");
   };
+  const handleBack = () => {
+    router.push("/dashboard/editProduct");
+  };
 
   return (
-    <div className="flex flex-col md:flex-row  items-center justify-center ">
-      {/* Add Product */}
+    <div className="flex flex-col md:flex-row gap-5 items-center justify-center ">
+      {/* Go Back */}
+      <div className="flex md:hidden gap-5 items-center justify-center">
+        <h1 className="text-xl font-bold">Go Back:</h1>
+        <FaArrowLeft className="font-bold text-xl" onClick={handleBack} />
+      </div>
+      {/* Edit Product */}
       <div className="flex flex-col gap-4 items-center">
         <h1 className="font-bold text-3xl md:text-5xl">Edit Product</h1>
         <form

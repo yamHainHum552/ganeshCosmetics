@@ -2,10 +2,10 @@
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { toast } from "react-toastify";
-import { useEffect } from "react";
-
+import { FaArrowLeft } from "react-icons/fa";
 const Delete = ({ result, id }) => {
   const router = useRouter();
+
   const handleDelete = async () => {
     const data = await fetch(
       `${process.env.NEXT_PUBLIC_SERVER}/api/products/${result._id}/${id}`,
@@ -21,9 +21,17 @@ const Delete = ({ result, id }) => {
       router.push("/dashboard/deleteProduct");
     }
   };
+  const handleBack = () => {
+    router.push("/dashboard/deleteProduct");
+  };
 
   return (
     <div className="flex flex-col gap-5 w-full h-full items-center justify-center">
+      {/* Go Back */}
+      <div className="flex md:hidden gap-5 items-center justify-center">
+        <h1 className="text-xl font-bold">Go Back:</h1>
+        <FaArrowLeft className="font-bold text-xl" onClick={handleBack} />
+      </div>
       {/* Delete Product */}
       <div className="flex items-center gap-4">
         <h1 className="text-white text-xl font-bold">Click here to Delete:</h1>
