@@ -1,17 +1,23 @@
 "use client";
 import Card from "@/components/card/Card";
+import Load from "@/components/loading/Load";
 import React, { useState, useMemo, useEffect } from "react";
 
 const Product = () => {
   const [name, setName] = useState("");
+  const [loading, setLoading] = useState(false);
   const [products, setProducts] = useState([]);
   useEffect(() => {
     async function getProducts() {
-      const data = await fetch(`http://localhost:3000/api/products`);
+      setLoading(true);
+      const data = await fetch(
+        `${process.env.NEXT_PUBLIC_SERVER}/api/products`
+      );
       if (!data.ok) {
         throw new Error("Cannot find products");
       }
       const products = await data.json();
+      setLoading(false);
       setProducts(products);
     }
     getProducts();
@@ -37,27 +43,31 @@ const Product = () => {
         />
       </div>
 
-      <div className="flex flex-wrap gap-5 items-center justify-center mt-12">
-        {filteredProducts.length > 0 ? (
-          filteredProducts.map((product) => (
-            <Card
-              key={product._id}
-              name={
-                product.name.length > 8
-                  ? product.name.slice(0, 6).concat("...").toUpperCase()
-                  : product.name.toUpperCase()
-              }
-              price={product.retailPrice}
-              image={product.image}
-              productId={product._id}
-              work="Delete"
-              link="/dashboard/deleteProduct"
-            />
-          ))
-        ) : (
-          <p>No Results Found</p>
-        )}
-      </div>
+      {!loading ? (
+        <div className="flex flex-wrap gap-5 items-center justify-center mt-12">
+          {filteredProducts.length > 0 ? (
+            filteredProducts.map((product) => (
+              <Card
+                key={product._id}
+                name={
+                  product.name.length > 8
+                    ? product.name.slice(0, 6).concat("...").toUpperCase()
+                    : product.name.toUpperCase()
+                }
+                price={product.retailPrice}
+                image={product.image}
+                productId={product._id}
+                work="Delete"
+                link="/dashboard/deleteProduct"
+              />
+            ))
+          ) : (
+            <p>No Results Found</p>
+          )}
+        </div>
+      ) : (
+        <Load />
+      )}
     </div>
   );
 };
