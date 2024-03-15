@@ -57,8 +57,8 @@ const Products = () => {
     <div className="flex flex-col items-center gap-5 ">
       <div className="w-[1/2] ">
         <input
-          type="text"
-          placeholder="Search Your Product Here"
+          type="search"
+          placeholder="Search for Products"
           className="p-4 rounded-full border-none outline-none bg-base-400 w-full text-black"
           value={name}
           onChange={(e) => {

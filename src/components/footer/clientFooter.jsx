@@ -36,7 +36,7 @@ const ClientFooter = () => {
           ))}
         </div>
         <div className="flex flex-col gap-5 w-full md:w-1/2 items-center justify-center">
-          <h1>Rate Us Now on Google Maps</h1>
+          <h1 className="hidden md:flex">Rate Us Now on Google Maps</h1>
           <Map />
         </div>
       </div>

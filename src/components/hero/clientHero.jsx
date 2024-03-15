@@ -34,8 +34,8 @@ const ClientHero = () => {
           className="text-center items-center "
         >
           <h1 className="text-3xl font-bold sm:text-5xl text-white lg:text-5xl flex flex-col md:flex-row">
-            <span>Proprietor-</span>
-            <span>Purna Pr. Guragain</span>
+            <span className="text-green-400 md:mr-2">Proprietor-</span>
+            <span className="">Purna Pr. Guragain</span>
           </h1>
         </motion.div>
       </div>
@@ -46,7 +46,7 @@ const ClientHero = () => {
         transition={{ duration: 1 }}
       >
         <h1 className="font-semi-bold text-xl">View Products: </h1>
-        <button className="bg-blue-600 text-white font-bold hover:bg-blue-700  p-2 rounded-lg ">
+        <button className="bg-green-400  font-bold hover:bg-green-500  p-2 rounded-lg ">
           <Link href="/products">Lets Go&#8594;</Link>
         </button>
       </motion.div>
