@@ -36,7 +36,7 @@ const Product = () => {
       <div className="w-[1/2] ">
         <input
           type="text"
-          placeholder="Search Your Product Here"
+          placeholder="Search For Products"
           className="p-4 rounded-full border-none outline-none bg-base-400 w-full text-black"
           value={name}
           onChange={(e) => setName(e.target.value)}

@@ -31,9 +31,9 @@ const About = () => {
     <div className="flex flex-col w-full justify-between gap-5 md:gap-10 items-center">
       {/* Picture */}
       <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        className="relative w-full  h-full flex items-center justify-center  hover:scale-105 transition-all ease-linear"
+        initial={{ x: "-200vw" }}
+        animate={{ x: 0 }}
+        className="relative w-full  h-full flex items-center justify-center  "
       >
         <Image
           src="/about.jpg"

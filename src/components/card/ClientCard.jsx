@@ -25,7 +25,7 @@ const ClientCard = ({ name, price, productId, work, link, image }) => {
         <span className="md:text-xl text-sm text-gray-500 line-through ml-2">
           Rs{" "}
           {Number.isInteger(price)
-            ? Math.floor(1.1 * price)
+            ? Math.floor(price < 500 ? 1.1 * price : 1.05 * price)
             : (1.1 * price).toFixed(2)}
         </span>
         <h1 className="font-bold  md:text-3xl text-[#333333]">Rs {price}</h1>

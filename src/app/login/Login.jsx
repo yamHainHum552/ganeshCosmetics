@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
+import { motion } from "framer-motion";
 
 const Login = () => {
   const [userName, setUserName] = useState("");
@@ -36,9 +37,24 @@ const Login = () => {
     }
   };
   return (
-    <div className="flex flex-col gap-5 border-white rounded-md p-3 border-2 items-center justify-around shadow-md shadow-white">
-      <h1 className="text-3xl md:text-5xl font-bold">Admin Login</h1>
-      <div className="flex flex-col gap-5">
+    <motion.div
+      initial={{ y: "-200vh" }}
+      animate={{ y: 0 }}
+      className="flex flex-col  gap-5 border-white rounded-md p-3 border-2 items-center justify-center shadow-md shadow-white"
+    >
+      <motion.h1
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1 }}
+        className="text-3xl md:text-5xl font-bold"
+      >
+        Admin Login
+      </motion.h1>
+      <motion.div
+        className="flex flex-col gap-5"
+        initial={{ x: "-200vw" }}
+        animate={{ x: 0 }}
+      >
         <input
           type="text"
           placeholder="Username"
@@ -54,14 +70,17 @@ const Login = () => {
           onChange={(e) => setPassword(e.target.value)}
           className="p-4 text-black rounded-md border-none outline-none bg-base-400 w-full"
         />
-      </div>
-      <button
+      </motion.div>
+      <motion.button
+        initial={{ y: "200vh" }}
+        animate={{ y: 0 }}
+        transition={{ delay: 0.5 }}
         className="bg-blue-600 hover:bg-blue-700 rounded-lg text-white p-2 font-bold"
         onClick={handleLogin}
       >
         {isLoading ? "Loading" : "Login"}
-      </button>
-    </div>
+      </motion.button>
+    </motion.div>
   );
 };
 

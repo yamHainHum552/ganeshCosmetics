@@ -9,6 +9,7 @@ const Product = () => {
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     async function getProducts() {
+      setLoading(true);
       const data = await fetch(
         `${process.env.NEXT_PUBLIC_SERVER}/api/products`,
         {
@@ -20,6 +21,7 @@ const Product = () => {
       }
       const products = await data.json();
       setProducts(products);
+      setLoading(false);
     }
     getProducts();
   }, []);
@@ -37,7 +39,7 @@ const Product = () => {
       <div className="w-[1/2] ">
         <input
           type="text"
-          placeholder="Search Your Product Here"
+          placeholder="Search for Products"
           className="p-4 rounded-full border-none outline-none bg-base-400 w-full text-black"
           value={name}
           onChange={(e) => setName(e.target.value)}
