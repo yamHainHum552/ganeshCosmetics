@@ -20,11 +20,18 @@ const ClientHero = () => {
           animate={{ x: 0, opacity: 1 }}
           className="text-center items-center "
         >
-          <h1 className="text-7xl font-bold  text-white lg:text-8xl">
+          <h1 className="text-5xl font-bold  text-white lg:text-8xl">
             Cosmetics
           </h1>
         </motion.div>
       </div>
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+        <h1 className="md:text-3xl  font-bold text-center">
+          Where
+          <span className="text-green-500"> Beauty</span> meets
+          <span className="text-blue-500"> Affordability</span>.
+        </h1>
+      </motion.div>
 
       <div>
         <motion.div
@@ -33,8 +40,8 @@ const ClientHero = () => {
           transition={{ duration: 1 }}
           className="text-center items-center "
         >
-          <h1 className="text-3xl font-bold sm:text-5xl text-white lg:text-5xl flex flex-col md:flex-row">
-            <span className="text-green-400 md:mr-2">Proprietor-</span>
+          <h1 className="text-xl font-bold md:text-5xl text-white flex flex-col md:flex-row">
+            <span className="text-green-500 md:mr-2">Proprietor-</span>
             <span className="">Purna Pr. Guragain</span>
           </h1>
         </motion.div>
@@ -46,7 +53,7 @@ const ClientHero = () => {
         transition={{ duration: 1 }}
       >
         <h1 className="font-semi-bold text-xl">View Products: </h1>
-        <button className="bg-green-400  font-bold hover:bg-green-500  p-2 rounded-lg ">
+        <button className="bg-green-500  font-bold hover:bg-green-600  p-2 rounded-lg ">
           <Link href="/products">Lets Go&#8594;</Link>
         </button>
       </motion.div>

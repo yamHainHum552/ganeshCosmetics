@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import { delay, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { toast } from "react-toastify";
 import { MdLogout } from "react-icons/md";
 
@@ -19,6 +19,14 @@ const ClientNav = () => {
 
   const router = useRouter();
   const pathName = usePathname();
+
+  useEffect(() => {
+    const close_menu = () => {
+      setOpen(false);
+      document.body.style.overflow = "visible";
+    };
+    close_menu();
+  }, [pathName]);
 
   useEffect(() => {
     const admin = async () => {

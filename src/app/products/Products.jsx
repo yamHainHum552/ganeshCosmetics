@@ -1,7 +1,7 @@
 "use client";
 import Card from "@/components/card/Card";
 import Load from "@/components/loading/Load";
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo, useEffect, useRef } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { toast } from "react-toastify";
 
@@ -52,6 +52,12 @@ const Products = () => {
       setPage(page + 1);
     }
   };
+  const inputRef = useRef();
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      inputRef.current.blur();
+    }
+  };
 
   return (
     <div className="flex flex-col items-center gap-5 ">
@@ -61,10 +67,12 @@ const Products = () => {
           placeholder="Search for Products"
           className="p-4 rounded-full border-none outline-none bg-base-400 w-full text-black"
           value={name}
+          ref={inputRef}
           onChange={(e) => {
             setName(e.target.value);
             e.target.value ? setIsSearching(true) : setIsSearching(false);
           }}
+          onKeyDown={handleKeyDown}
         />
       </div>
 
@@ -80,14 +88,14 @@ const Products = () => {
                 <Card
                   key={product._id}
                   name={
-                    product.name.length > 15
+                    product.name.length > 14
                       ? product.name.slice(0, 10).concat("...").toUpperCase()
                       : product.name.toUpperCase()
                   }
                   price={product.retailPrice}
                   productId={product._id}
                   image={product.image}
-                  work="View Product"
+                  work="Explore"
                   link="products"
                 />
               ))
