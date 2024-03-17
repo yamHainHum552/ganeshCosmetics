@@ -86,6 +86,7 @@ const Products = () => {
                 page * productsPerPage,
                 page * productsPerPage + productsPerPage
               )
+              .reverse()
               .map((product) => (
                 <Card
                   key={product._id}

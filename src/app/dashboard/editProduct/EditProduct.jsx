@@ -49,21 +49,23 @@ const Product = () => {
       {!loading ? (
         <div className="flex flex-wrap gap-5 items-center justify-center mt-12">
           {filteredProducts.length > 0 ? (
-            filteredProducts.map((product) => (
-              <Card
-                key={product._id}
-                name={
-                  product.name.length > 8
-                    ? product.name.slice(0, 6).concat("...").toUpperCase()
-                    : product.name.toUpperCase()
-                }
-                price={product.retailPrice}
-                productId={product._id}
-                image={product.image}
-                work="Edit"
-                link="/dashboard/editProduct"
-              />
-            ))
+            filteredProducts
+              .reverse()
+              .map((product) => (
+                <Card
+                  key={product._id}
+                  name={
+                    product.name.length > 8
+                      ? product.name.slice(0, 6).concat("...").toUpperCase()
+                      : product.name.toUpperCase()
+                  }
+                  price={product.retailPrice}
+                  productId={product._id}
+                  image={product.image}
+                  work="Edit"
+                  link="/dashboard/editProduct"
+                />
+              ))
           ) : (
             <p>No Results Found</p>
           )}
