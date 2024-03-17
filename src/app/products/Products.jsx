@@ -1,5 +1,6 @@
 "use client";
 import Card from "@/components/card/Card";
+import GoToTop from "@/components/gototop/GoToTop";
 import Load from "@/components/loading/Load";
 import React, { useState, useMemo, useEffect, useRef } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
@@ -61,6 +62,7 @@ const Products = () => {
 
   return (
     <div className="flex flex-col items-center gap-5 ">
+      <GoToTop />
       <div className="w-[1/2] ">
         <input
           type="search"
