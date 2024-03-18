@@ -9,8 +9,8 @@ const ClientCard = ({ title, link }) => {
       </div>
       {/* Go through link */}
       <div className="flex gap-2 items-center justify-center mb-1">
-        <button className="p-1 font-bold  text-blue-600  rounded-sm">
-          <Link href={`dashboard/${link}`}>Go</Link>
+        <button className="p-1 font-bold  text-gray-100 bg-blue-500  rounded-md">
+          <Link href={`dashboard/${link}`}>Let's Go</Link>
         </button>
       </div>
     </div>

@@ -38,8 +38,8 @@ const Login = () => {
   };
   return (
     <motion.div
-      initial={{ y: "-200vh" }}
-      animate={{ y: 0 }}
+      initial={{ y: "-200vh", opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
       className="flex flex-col  gap-5 border-white rounded-md p-3 border-2 items-center justify-center shadow-md shadow-white"
     >
       <motion.h1
@@ -50,11 +50,7 @@ const Login = () => {
       >
         Admin Login
       </motion.h1>
-      <motion.div
-        className="flex flex-col gap-5"
-        initial={{ x: "-200vw" }}
-        animate={{ x: 0 }}
-      >
+      <div className="flex flex-col gap-5">
         <input
           type="text"
           placeholder="Username"
@@ -70,11 +66,11 @@ const Login = () => {
           onChange={(e) => setPassword(e.target.value)}
           className="p-4 text-black rounded-md border-none outline-none bg-base-400 w-full"
         />
-      </motion.div>
+      </div>
       <motion.button
-        initial={{ y: "200vh" }}
-        animate={{ y: 0 }}
-        transition={{ delay: 0.5 }}
+        initial={{ y: "200vh", opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ delay: 0.25 }}
         className="bg-blue-600 hover:bg-blue-700 rounded-lg text-white p-2 font-bold"
         onClick={handleLogin}
       >

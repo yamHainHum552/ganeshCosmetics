@@ -180,7 +180,7 @@ const ClientNav = () => {
       </div>
 
       {/* responsive view */}
-      <div className="flex lg:hidden h-full items-center ">
+      <div className="flex lg:hidden min-h-screen items-center ">
         <button
           className="w-10 h-8 flex flex-col items-center justify-around  z-50 relative"
           onClick={handleOpen}
