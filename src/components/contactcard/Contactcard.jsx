@@ -1,9 +1,21 @@
 import { FaLocationDot } from "react-icons/fa6";
 import { FaPhoneAlt } from "react-icons/fa";
 import { IoMail } from "react-icons/io5";
-import { FaPen } from "react-icons/fa";
+import { FaCopy } from "react-icons/fa";
 import Link from "next/link";
+import { useState } from "react";
+import { toast } from "react-toastify";
 const Contactcard = () => {
+  const [pan, setPan] = useState("601322578");
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(pan);
+      toast.success("Copied to clipboard");
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
   return (
     <div className=" bg-white flex font-bold flex-col gap-5 rounded-md p-2 justify-center items-center hover:scale-105 transition-all ease-linear">
       <div className="flex w-full items-center justify-between lg:justify-evenly">
@@ -47,9 +59,12 @@ const Contactcard = () => {
       <div className="w-full h-[1px] background"></div>
 
       <div className="flex w-full items-center justify-between lg:justify-evenly">
-        <div className="flex items-center justify-around w-full">
-          <FaPen className="hover:animate-pulse" />
-          <h1>PAN: 601322578</h1>
+        <div
+          className="flex items-center justify-around w-full cursor-pointer"
+          onClick={handleCopy}
+        >
+          <FaCopy className="hover:animate-pulse" />
+          <h1>PAN: {pan}</h1>
         </div>
       </div>
     </div>

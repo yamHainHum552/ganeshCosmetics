@@ -3,6 +3,18 @@ import Image from "next/image";
 import Link from "next/link";
 
 const ClientCard = ({ name, price, productId, work, link, image }) => {
+  const setDiscountPrice = () => {
+    if (Number.isInteger(price)) {
+      if (price < 500) return Math.floor(1.1 * price);
+      else if (price < 1000 && price > 500) {
+        return Math.floor(1.05 * price);
+      } else {
+        return Math.floor(1.025 * price);
+      }
+    } else {
+      return (1.1 * price).toFixed(2);
+    }
+  };
   return (
     <div className="hover:scale-105 gap-1 w-[130px] transition-all ease-in duration-75 flex flex-col md:gap-5 bg-[#f2f2f2] shadow-md shadow-gray-500 text-black md:w-[250px] items-center justify-center rounded-md">
       {/* Card Image */}
@@ -23,10 +35,7 @@ const ClientCard = ({ name, price, productId, work, link, image }) => {
       {/* Product Price */}
       <div className="flex gap-2 items-center justify-center">
         <span className="md:text-xl text-sm text-gray-500 line-through ml-2">
-          Rs{" "}
-          {Number.isInteger(price)
-            ? Math.floor(price < 500 ? 1.1 * price : 1.025 * price)
-            : (1.1 * price).toFixed(2)}
+          Rs {setDiscountPrice()}
         </span>
         <h1 className="font-bold  md:text-3xl text-[#333333]">Rs {price}</h1>
       </div>

@@ -13,6 +13,13 @@ const Contact = () => {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
 
+  const resetContents = () => {
+    setName("");
+    setPhone("");
+    setEmail("");
+    setMessage("");
+  };
+
   const sendEmail = async (e) => {
     e.preventDefault();
     if (!name || !phone || !message || !email) {
@@ -33,6 +40,7 @@ const Contact = () => {
         console.log("hello");
         toast.success("Message Sent Successfully!");
         form.current.reset();
+        resetContents();
       })
       .catch((err) => toast.error(err.message));
   };

@@ -53,7 +53,7 @@ const ClientHero = () => {
         transition={{ duration: 1 }}
       >
         <h1 className="font-semi-bold text-xl">View Products: </h1>
-        <button className="bg-green-500  font-bold hover:bg-green-600  p-2 rounded-lg ">
+        <button className="bg-green-500 font-sm  sm:font-bold hover:bg-green-600  p-1 sm:p-2 rounded-lg ">
           <Link href="/products">Lets Go&#8594;</Link>
         </button>
       </motion.div>
