@@ -12,6 +12,12 @@ const roboto = Roboto({
   display: "swap",
 });
 
+export const metadata = {
+  metadataBase: new URL(`${process.env.NEXT_PUBLIC_SERVER}`),
+  openGraph: {
+    images: "/opengraph-image.jpg",
+  },
+};
 export default function RootLayout({ children }) {
   return (
     <html lang="en">

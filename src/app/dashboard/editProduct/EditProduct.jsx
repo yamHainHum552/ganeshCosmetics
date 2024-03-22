@@ -55,8 +55,8 @@ const Product = () => {
                 <Card
                   key={product._id}
                   name={
-                    product.name.length > 8
-                      ? product.name.slice(0, 6).concat("...").toUpperCase()
+                    product.name.length > 14
+                      ? product.name.slice(0, 10).concat("...").toUpperCase()
                       : product.name.toUpperCase()
                   }
                   price={product.retailPrice}
