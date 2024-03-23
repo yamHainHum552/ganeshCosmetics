@@ -109,7 +109,7 @@ const Products = () => {
       ) : (
         <Load />
       )}
-      {products.length > 0 && (
+      {products.length > 0 && page > 0 && (
         <div className="flex items-center justify-around gap-10">
           {!isSearching && page >= 1 && (
             <div>

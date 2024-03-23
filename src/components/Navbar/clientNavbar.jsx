@@ -180,7 +180,7 @@ const ClientNav = () => {
       </div>
 
       {/* responsive view */}
-      <div className="flex lg:hidden min-h-screen items-center ">
+      <div className="flex lg:hidden h-full items-center ">
         <button
           className="w-10 h-8 flex flex-col items-center justify-around  z-50 relative"
           onClick={handleOpen}
@@ -203,7 +203,7 @@ const ClientNav = () => {
         </button>
         {open ? (
           <motion.div
-            className="absolute overflow-hidden top-0 left-0 bg-black text-white h-full w-full flex flex-col items-center gap-8 text-4xl justify-center z-20"
+            className="absolute  top-0 left-0 background text-white h-full w-full flex flex-col items-center gap-8 text-3xl justify-center z-20"
             variants={listVariants}
             initial="closed"
             animate="opened"
