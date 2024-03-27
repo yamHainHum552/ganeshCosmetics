@@ -4,13 +4,14 @@ import { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { toast } from "react-toastify";
-import { MdLogout } from "react-icons/md";
+import { MdDashboardCustomize, MdLogin, MdLogout } from "react-icons/md";
+import { FaCartPlus, FaHome, FaMailBulk, FaStore } from "react-icons/fa";
 
 const links = [
-  { url: "/", title: "Home" },
-  { url: "/about", title: "About" },
-  { url: "/products", title: "Products" },
-  { url: "/contact", title: "Contact" },
+  { url: "/", title: "Home", logo: <FaHome /> },
+  { url: "/about", title: "About", logo: <FaStore /> },
+  { url: "/products", title: "Products", logo: <FaCartPlus /> },
+  { url: "/contact", title: "Contact", logo: <FaMailBulk /> },
 ];
 
 const ClientNav = () => {
@@ -171,9 +172,12 @@ const ClientNav = () => {
           >
             <Link
               href="/login"
-              className={`${pathName == "/login" ? "text-blue-800" : ""} `}
+              className={`${
+                pathName == "/login" ? "text-blue-500" : ""
+              } flex items-center justify-center gap-2 font-semibold `}
             >
               Admin Login
+              <MdLogin />
             </Link>
           </motion.div>
         )}
@@ -213,19 +217,27 @@ const ClientNav = () => {
               <motion.div variants={listItemVariants} key={link.title}>
                 <Link
                   href={link.url}
-                  className={`${pathName == link.url ? "text-blue-500" : ""}`}
+                  className={`${
+                    pathName == link.url ? "text-blue-500" : ""
+                  } flex gap-2`}
                 >
+                  {link.logo}
                   {link.title}
                 </Link>
               </motion.div>
             ))}
             {isAdmin ? (
-              <div className="flex flex-col gap-5 items-center justify-center">
-                <motion.div variants={listItemVariants}>
+              <div className="flex flex-col gap-5 items-center justify-center w-full">
+                <motion.div variants={listItemVariants} className="flex gap-2">
+                  <MdDashboardCustomize
+                    className={`${
+                      pathName == "/dashboard" ? "text-blue-500" : ""
+                    }`}
+                  />
                   <Link
                     href="/dashboard"
                     className={`${
-                      pathName == "/dashboard" ? "text-blue-800" : ""
+                      pathName == "/dashboard" ? "text-blue-500" : ""
                     }`}
                   >
                     Dashboard
@@ -234,7 +246,7 @@ const ClientNav = () => {
                 <motion.div variants={listItemVariants}>
                   <button
                     onClick={handleLogout}
-                    className="text-white flex items-center font-bold gap-2"
+                    className="text-white flex items-center gap-2"
                   >
                     Logout
                     <MdLogout className="text-white" />
@@ -245,8 +257,11 @@ const ClientNav = () => {
               <motion.div variants={listItemVariants}>
                 <Link
                   href="/login"
-                  className={`${pathName == "/login" ? "text-blue-800" : ""}`}
+                  className={`${
+                    pathName == "/login" ? "text-blue-500" : ""
+                  } flex gap-2 `}
                 >
+                  <MdLogin />
                   Admin Login
                 </Link>
               </motion.div>

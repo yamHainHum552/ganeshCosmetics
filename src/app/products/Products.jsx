@@ -82,11 +82,13 @@ const Products = () => {
         <div className="flex flex-wrap gap-5 items-center justify-center mt-12">
           {filteredProducts.length > 0 ? (
             filteredProducts
+
               .slice(
                 page * productsPerPage,
                 page * productsPerPage + productsPerPage
               )
               .reverse()
+
               .map((product) => (
                 <Card
                   key={product._id}
@@ -109,12 +111,12 @@ const Products = () => {
       ) : (
         <Load />
       )}
-      {products.length > 0 && page > 0 && (
-        <div className="flex items-center justify-around gap-10">
-          {!isSearching && page >= 1 && (
+      {products.length > 0 && (
+        <div className="flex items-center justify-around gap-10 sticky">
+          {!isSearching && (
             <div>
               <button
-                className={`p-2 bg-white rounded-lg text-black font-bold ${
+                className={`px-2 py-1 md:p-2 font-semibold bg-white rounded-lg text-black md:font-bold ${
                   page < 1 ? "bg-gray-400" : ""
                 }`}
                 onClick={handlePrev}
@@ -145,10 +147,10 @@ const Products = () => {
               ))}
           </div>
 
-          {!isSearching && page < totalPages - 1 && (
+          {!isSearching && (
             <div>
               <button
-                className={`p-2 rounded-lg bg-white text-black font-bold `}
+                className={`px-2 py-1 md:p-2 rounded-lg bg-white text-black font-semibold md:font-bold `}
                 onClick={handleNext}
               >
                 <FaArrowRight />
