@@ -207,7 +207,7 @@ const ClientNav = () => {
         </button>
         {open ? (
           <motion.div
-            className="absolute  top-0 left-0 background text-white h-full w-full flex flex-col items-center gap-8 text-3xl justify-center z-20"
+            className="fixed top-0 left-0 background text-white h-full w-full flex flex-col items-center gap-8 text-3xl justify-center z-20"
             variants={listVariants}
             initial="closed"
             animate="opened"

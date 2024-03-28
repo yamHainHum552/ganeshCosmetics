@@ -37,7 +37,10 @@ const Products = () => {
     return products.filter((product) =>
       product.name.toLowerCase().includes(name.toLowerCase())
     );
-  }, [name, products]);
+  }, [name, products])
+    .slice()
+    .reverse();
+
   const totalPages = Math.ceil(products.length / productsPerPage);
 
   const handlePagination = (e) => {
@@ -81,15 +84,30 @@ const Products = () => {
       {!isLoading ? (
         <div className="flex flex-wrap gap-5 items-center justify-center mt-12">
           {filteredProducts.length > 0 ? (
-            filteredProducts
+            !isSearching ? (
+              filteredProducts
+                .slice(
+                  page * productsPerPage,
+                  page * productsPerPage + productsPerPage
+                )
 
-              .slice(
-                page * productsPerPage,
-                page * productsPerPage + productsPerPage
-              )
-              .reverse()
-
-              .map((product) => (
+                .map((product) => (
+                  <Card
+                    key={product._id}
+                    name={
+                      product.name.length > 14
+                        ? product.name.slice(0, 10).concat("...").toUpperCase()
+                        : product.name.toUpperCase()
+                    }
+                    price={product.retailPrice}
+                    productId={product._id}
+                    image={product.image}
+                    work="Explore"
+                    link="products"
+                  />
+                ))
+            ) : (
+              filteredProducts.map((product) => (
                 <Card
                   key={product._id}
                   name={
@@ -104,6 +122,7 @@ const Products = () => {
                   link="products"
                 />
               ))
+            )
           ) : (
             <p>No Results Found</p>
           )}
