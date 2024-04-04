@@ -11,6 +11,10 @@ const Login = () => {
   const router = useRouter();
 
   const handleLogin = async () => {
+    if (!userName || !password) {
+      toast.error("Please don't leave the fields empty");
+      return;
+    }
     try {
       setIsLoading(true);
       const response = await fetch(

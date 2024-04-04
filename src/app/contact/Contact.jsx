@@ -12,6 +12,7 @@ const Contact = () => {
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const [isSending, setIsSending] = useState(false);
 
   const resetContents = () => {
     setName("");
@@ -26,6 +27,7 @@ const Contact = () => {
       toast.error("Please don't leave the fields empty");
       return null;
     }
+    setIsSending(true);
 
     await emailjs
       .sendForm(
@@ -37,7 +39,7 @@ const Contact = () => {
         }
       )
       .then(() => {
-        console.log("hello");
+        setIsSending(false);
         toast.success("Message Sent Successfully!");
         form.current.reset();
         resetContents();
@@ -98,7 +100,7 @@ const Contact = () => {
             className="btn btn-primary text-white font-bold bg-blue-600 hover:bg-blue-700 p-2  rounded-md"
             type="submit"
           >
-            Send
+            {isSending ? "Sending" : "Send"}
           </button>
         </form>
       </motion.div>
