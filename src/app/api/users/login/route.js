@@ -46,13 +46,11 @@ export async function POST(req, res) {
 export async function GET(req) {
   try {
     const token = (await req.cookies.get("token")?.value) || "";
-
     if (!token) {
       return NextResponse.json({ result: "No User Found", success: false });
     }
-    const verifedToken = await jwt.verify(token, process.env.MY_TOKEN);
+    const verifedToken = jwt.verify(token, process.env.MY_TOKEN);
     const user = await Admin.findOne({ _id: verifedToken.id });
-
     return NextResponse.json({ result: "User Found", success: true });
   } catch (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });

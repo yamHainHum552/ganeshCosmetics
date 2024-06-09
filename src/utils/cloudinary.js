@@ -7,24 +7,32 @@ cloudinary.config({
 });
 
 const uploadOnCloudinary = async (file, folder) => {
-  const buffer = await file.arrayBuffer();
-  const bytes = Buffer.from(buffer);
-  return new Promise(async (resolve, reject) => {
-    await cloudinary.uploader
-      .upload_stream(
+  try {
+    const buffer = await file.arrayBuffer();
+    const bytes = Buffer.from(buffer);
+
+    return new Promise((resolve, reject) => {
+      const uploadStream = cloudinary.uploader.upload_stream(
         {
           resource_type: "auto",
           folder,
         },
-        async (err, result) => {
-          if (err) {
-            return reject(err.message);
+        (error, result) => {
+          if (error) {
+            return reject(error.message);
           }
           return resolve(result);
         }
-      )
-      .end(bytes);
-  });
+      );
+
+      const stream = require("stream");
+      const bufferStream = new stream.PassThrough();
+      bufferStream.end(bytes);
+      bufferStream.pipe(uploadStream);
+    });
+  } catch (error) {
+    throw new Error(`Failed to upload file: ${error.message}`);
+  }
 };
 const deleteImage = async (id) => {
   return new Promise(async (resolve, reject) => {
