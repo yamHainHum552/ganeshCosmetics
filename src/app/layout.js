@@ -28,9 +28,10 @@ export default function RootLayout({ children }) {
       >
         <ToastContainer autoClose={1000} />
         <Navbar />
-        <Event />
 
-        <main className="min-h-screen flex items-center justify-center p-10">
+        <main className="min-h-screen flex-col flex items-center justify-center p-10">
+          <Event />
+
           {children}
         </main>
         <Footer />
