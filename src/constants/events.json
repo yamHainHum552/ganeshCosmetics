@@ -1,0 +1,87 @@
+[
+  {
+    "name": "Tihar",
+    "message": "🎉 Happy Tihar! Join us in celebrating this festival of lights!",
+    "startDate": "2024-10-27",
+    "endDate": "2024-11-05",
+    "bannerColor": "#007bff"
+  },
+
+  {
+    "name": "Christmas",
+    "message": "🎄 Merry Christmas! Celebrate the season with us!",
+    "startDate": "2024-10-29",
+    "endDate": "2024-11-05",
+    "bannerColor": "#ffcc00"
+  },
+  {
+    "name": "Dashain",
+    "message": "🐐 Happy Dashain! Celebrate Nepal’s greatest festival of joy and family gatherings!",
+    "startDate": "2024-10-08",
+    "endDate": "2024-10-24",
+    "bannerColor": "#e57373"
+  },
+  {
+    "name": "Holi",
+    "message": "🌈 Happy Holi! Enjoy the festival of colors with love and joy!",
+    "startDate": "2024-03-24",
+    "endDate": "2024-03-25",
+    "bannerColor": "#ff4081"
+  },
+  {
+    "name": "New Year",
+    "message": "🎉 Happy New Year! Embrace new beginnings with joy!",
+    "startDate": "2024-04-13",
+    "endDate": "2024-04-14",
+    "bannerColor": "#66bb6a"
+  },
+  {
+    "name": "Maghe Sankranti",
+    "message": "🍲 Happy Maghe Sankranti! Warm up with family and traditional foods!",
+    "startDate": "2024-01-15",
+    "endDate": "2024-01-15",
+    "bannerColor": "#ff7043"
+  },
+  {
+    "name": "Buddha Jayanti",
+    "message": "🕊️ Celebrate Buddha Jayanti, honoring the birth of Lord Buddha!",
+    "startDate": "2024-05-23",
+    "endDate": "2024-05-23",
+    "bannerColor": "#fbc02d"
+  },
+  {
+    "name": "Janai Purnima",
+    "message": "📿 Happy Janai Purnima and Raksha Bandhan! Embrace the bond of protection.",
+    "startDate": "2024-08-19",
+    "endDate": "2024-08-19",
+    "bannerColor": "#2196f3"
+  },
+  {
+    "name": "Indra Jatra",
+    "message": "🌾 Celebrate Indra Jatra! Join in honoring the harvest and traditions of Kathmandu.",
+    "startDate": "2024-09-13",
+    "endDate": "2024-09-13",
+    "bannerColor": "#9e9d24"
+  },
+  {
+    "name": "Chhath Puja",
+    "message": "🌅 Happy Chhath Puja! Worship the sun with faith and devotion.",
+    "startDate": "2024-11-06",
+    "endDate": "2024-11-09",
+    "bannerColor": "#ff9800"
+  },
+  {
+    "name": "Gai Jatra",
+    "message": "🐄 Celebrate Gai Jatra with us, a festival of remembrance and humor!",
+    "startDate": "2024-08-22",
+    "endDate": "2024-08-22",
+    "bannerColor": "#8d6e63"
+  },
+  {
+    "name": "Teej",
+    "message": "🌹 Happy Teej! Celebrate the strength and resilience of women!",
+    "startDate": "2024-09-06",
+    "endDate": "2024-09-06",
+    "bannerColor": "#d32f2f"
+  }
+]

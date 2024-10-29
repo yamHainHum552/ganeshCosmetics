@@ -4,6 +4,7 @@ import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/footer/Footer";
 import { ToastContainer } from "./toast";
 import "react-toastify/dist/ReactToastify.css";
+import Event from "@/components/events/Event";
 
 const roboto = Roboto({
   weight: ["400", "700"],
@@ -18,6 +19,7 @@ export const metadata = {
     images: "/opengraph-image.jpg",
   },
 };
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
@@ -26,6 +28,8 @@ export default function RootLayout({ children }) {
       >
         <ToastContainer autoClose={1000} />
         <Navbar />
+        <Event />
+
         <main className="min-h-screen flex items-center justify-center p-10">
           {children}
         </main>
