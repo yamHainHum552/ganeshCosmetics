@@ -1,5 +1,5 @@
 import Update from "./Update";
-import Image from "next/image";
+
 const getProduct = async (id) => {
   try {
     const data = await fetch(
@@ -26,15 +26,6 @@ const page = async ({ params }) => {
   return (
     <div className="flex items-center justify-center gap-10 flex-wrap">
       <Update product={result} id={id} />
-      <div className="sm:flex flex-col items-center gap-5 hidden">
-        <h1 className="text-3xl md:text-5xl font-bold">Image</h1>
-        <Image
-          src={result.image}
-          height={300}
-          width={300}
-          alt="Product Image"
-        />
-      </div>
     </div>
   );
 };

@@ -22,7 +22,7 @@ const ClientCard = ({ name, price, productId, work, link, image }) => {
         <Image
           width={100}
           height={100}
-          src={image}
+          src={image || "/default.jpg"}
           alt="Card Image"
           className="w-auto h-auto object-fill hover:scale-105 transition-all ease-in"
           priority="true"
