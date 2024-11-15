@@ -40,11 +40,24 @@ export async function POST(req, res) {
 export async function GET(req) {
   try {
     await connectToMongo();
-    const data = await Product.find();
+
+    // Extract query parameters for pagination
+    const { searchParams } = new URL(req.url);
+    const page = parseInt(searchParams.get("page")) || 0; // Default to page 0
+    const limit = parseInt(searchParams.get("limit")) || 50; // Default to 50 items per page
+
+    // Calculate the number of items to skip
+    const skip = page * limit;
+
+    // Fetch products with pagination
+    const data = await Product.find().skip(skip).limit(limit);
 
     return NextResponse.json(data);
   } catch (error) {
-    console.log(error);
-    return NextResponse.error("Error while adding products", 500);
+    console.error(error);
+    return NextResponse.json(
+      { message: "Error while fetching products" },
+      { status: 500 }
+    );
   }
 }
