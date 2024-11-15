@@ -1,10 +1,10 @@
-import Product from "./Products";
+import DisplayProduct from "@/components/displayProducts/DisplayProducts";
 
 const page = async () => {
   return (
     <div className="h-full flex flex-col items-center justify-center gap-10">
       <h1 className="text-5xl md:text-7xl font-bold">Products</h1>
-      <Product />
+      <DisplayProduct buttonTitle={"Explore"} link={"products"} />
     </div>
   );
 };

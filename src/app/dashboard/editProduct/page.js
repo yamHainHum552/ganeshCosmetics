@@ -1,10 +1,10 @@
 import React from "react";
-import EditProduct from "./EditProduct";
+import DisplayProduct from "@/components/displayProducts/DisplayProducts";
 
 const page = async () => {
   return (
     <div className="h-full flex flex-col items-center justify-center gap-10">
-      <EditProduct />
+      <DisplayProduct buttonTitle={"Edit"} link={"/dashboard/editProduct"} />
     </div>
   );
 };

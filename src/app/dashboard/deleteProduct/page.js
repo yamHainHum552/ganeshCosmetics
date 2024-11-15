@@ -1,9 +1,12 @@
-import DeleteProduct from "./DeleteProduct";
+import DisplayProduct from "@/components/displayProducts/DisplayProducts";
 
 const page = () => {
   return (
     <>
-      <DeleteProduct />
+      <DisplayProduct
+        buttonTitle={"Delete"}
+        link={"/dashboard/deleteProduct"}
+      />
     </>
   );
 };

@@ -41,15 +41,12 @@ export async function GET(req) {
   try {
     await connectToMongo();
 
-    // Extract query parameters for pagination
     const { searchParams } = new URL(req.url);
-    const page = parseInt(searchParams.get("page")) || 0; // Default to page 0
-    const limit = parseInt(searchParams.get("limit")) || 50; // Default to 50 items per page
+    const page = parseInt(searchParams.get("page")) || 0;
+    const limit = parseInt(searchParams.get("limit")) || 50;
 
-    // Calculate the number of items to skip
     const skip = page * limit;
 
-    // Fetch products with pagination
     const data = await Product.find().skip(skip).limit(limit);
 
     return NextResponse.json(data);

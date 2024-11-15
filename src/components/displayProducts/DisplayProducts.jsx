@@ -6,7 +6,7 @@ import Card from "@/components/card/Card";
 import GoToTop from "@/components/gototop/GoToTop";
 import Load from "@/components/loading/Load";
 
-const Products = () => {
+const DisplayProduct = ({ buttonTitle, link }) => {
   const [name, setName] = useState("");
   const [page, setPage] = useState(0);
   const [productsPerPage] = useState(50);
@@ -116,8 +116,8 @@ const Products = () => {
                 price={product.retailPrice}
                 productId={product._id}
                 image={product.image}
-                work="Explore"
-                link="products"
+                work={buttonTitle}
+                link={link}
               />
             ))
           ) : (
@@ -159,4 +159,4 @@ const Products = () => {
   );
 };
 
-export default Products;
+export default DisplayProduct;
