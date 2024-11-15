@@ -19,17 +19,36 @@ const Products = () => {
     async function getProducts() {
       setIsLoading(true);
       try {
-        const data = await fetch(
-          `${process.env.NEXT_PUBLIC_SERVER}/api/products?page=${page}&limit=${productsPerPage}`
-        );
-        if (!data.ok) {
-          throw new Error("Error fetching products");
-        }
-        const products = await data.json();
-        setProducts(products);
+        if (isSearching && name) {
+          let fetchedProducts = [];
+          let currentPage = 0;
+          let moreProducts = true;
 
-        // Disable 'Next' button if fetched products are less than productsPerPage
-        setHasMoreProducts(products.length === productsPerPage);
+          while (moreProducts) {
+            const data = await fetch(
+              `${process.env.NEXT_PUBLIC_SERVER}/api/products?page=${currentPage}&limit=${productsPerPage}`
+            );
+            if (!data.ok) {
+              throw new Error("Error fetching products");
+            }
+            const pageProducts = await data.json();
+            fetchedProducts = [...fetchedProducts, ...pageProducts];
+            moreProducts = pageProducts.length === productsPerPage;
+            currentPage++;
+          }
+          setProducts(fetchedProducts);
+          setHasMoreProducts(false);
+        } else {
+          const data = await fetch(
+            `${process.env.NEXT_PUBLIC_SERVER}/api/products?page=${page}&limit=${productsPerPage}`
+          );
+          if (!data.ok) {
+            throw new Error("Error fetching products");
+          }
+          const products = await data.json();
+          setProducts(products);
+          setHasMoreProducts(products.length === productsPerPage);
+        }
       } catch (error) {
         toast.error(error.message);
       } finally {
@@ -37,7 +56,7 @@ const Products = () => {
       }
     }
     getProducts();
-  }, [page, productsPerPage]);
+  }, [page, productsPerPage, isSearching, name]);
 
   const filteredProducts = useMemo(() => {
     if (!name) {
@@ -46,7 +65,9 @@ const Products = () => {
     return products.filter((product) =>
       product.name.toLowerCase().includes(name.toLowerCase())
     );
-  }, [name, products]);
+  }, [name, products])
+    .slice()
+    .reverse();
 
   const handlePrev = () => {
     if (page > 0) {
