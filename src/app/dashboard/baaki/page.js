@@ -26,6 +26,7 @@ import {
   PlusCircle,
   Search,
   SquareArrowRight,
+  Loader2,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 
@@ -36,7 +37,9 @@ export default function BaakiDashboard() {
   const [detailOpen, setDetailOpen] = useState(false);
   const [selectedCustomer, setSelectedCustomer] = useState(null);
   const [search, setSearch] = useState("");
+  const [loading, setLoading] = useState(true);
   const router = useRouter();
+
   const [form, setForm] = useState({
     name: "",
     phone: "",
@@ -50,12 +53,15 @@ export default function BaakiDashboard() {
 
   const fetchBaakis = async () => {
     try {
+      setLoading(true);
       const res = await axios.get(
         `${process.env.NEXT_PUBLIC_SERVER}/api/customers`
       );
       setBaakis(res.data);
     } catch (err) {
       console.error(err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -96,7 +102,6 @@ export default function BaakiDashboard() {
     }
   };
 
-  // Filtered list for search
   const filteredBaakis = baakis.filter((item) =>
     item.name.toLowerCase().includes(search.toLowerCase())
   );
@@ -105,13 +110,14 @@ export default function BaakiDashboard() {
     <div className="min-h-screen bg-background p-4 md:p-10">
       <Card className="max-w-7xl mx-auto shadow-2xl border-0 rounded-2xl overflow-hidden">
         {/* Header */}
-        <CardHeader className="flex flex-col md:flex-row md:items-center md:justify-between bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-t-2xl p-6 space-y-4 md:space-y-0">
-          <CardTitle className="text-2xl md:text-3xl font-bold tracking-tight">
+        <CardHeader className="flex flex-col md:flex-row md:items-center md:justify-between bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-t-2xl p-6 gap-4">
+          <CardTitle className="text-2xl md:text-3xl font-bold tracking-tight text-center md:text-left">
             बाँकी
           </CardTitle>
-          <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+
+          <div className="flex flex-col sm:flex-row sm:items-center gap-3 w-full md:w-auto">
             {/* Search box */}
-            <div className="relative">
+            <div className="relative flex-1">
               <Search className="w-5 h-5 absolute left-2 top-2.5 text-gray-400" />
               <Input
                 placeholder="Search customer..."
@@ -120,9 +126,10 @@ export default function BaakiDashboard() {
                 onChange={(e) => setSearch(e.target.value)}
               />
             </div>
+
             {/* Add button */}
             <Button
-              className="bg-white text-purple-700 font-semibold hover:bg-gray-100 rounded-lg"
+              className="bg-white text-purple-700 font-semibold hover:bg-gray-100 rounded-lg flex items-center justify-center"
               onClick={() => {
                 setEditing(null);
                 setForm({ name: "", phone: "", address: "" });
@@ -135,96 +142,100 @@ export default function BaakiDashboard() {
         </CardHeader>
 
         {/* Content */}
-        <CardContent className="p-4 md:p-8 overflow-x-auto bg-white">
-          <Table className="min-w-full">
-            <TableHeader>
-              <TableRow className="bg-gray-100">
-                <TableHead className="text-sm md:text-lg">Customer</TableHead>
-                <TableHead className="text-sm md:text-lg">Phone</TableHead>
-                <TableHead className="text-sm md:text-lg">Address</TableHead>
-                <TableHead className="text-sm md:text-lg text-right">
-                  Actions
-                </TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {filteredBaakis.length > 0 ? (
-                filteredBaakis.map((item) => (
-                  <TableRow
-                    key={item._id}
-                    role="button"
-                    tabIndex={0}
-                    className="hover:bg-gray-50 cursor-pointer border-b transition-colors"
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter" || e.key === " ") {
-                        router.push(`/dashboard/baaki/${item._id}`);
-                      }
-                    }}
-                  >
-                    <TableCell className="font-semibold text-gray-800">
-                      {item.name}
-                    </TableCell>
-                    <TableCell className="text-gray-800">
-                      {item.phone}
-                    </TableCell>
-                    <TableCell className="text-gray-800">
-                      {item.address}
-                    </TableCell>
-                    <TableCell
-                      className="text-right space-x-2"
-                      onClick={(e) => e.stopPropagation()}
+        <CardContent className="p-4 md:p-8 bg-white overflow-x-auto">
+          {loading ? (
+            <div className="flex flex-col items-center justify-center py-10 text-gray-500">
+              <Loader2 className="animate-spin w-8 h-8 mb-3 text-purple-600" />
+              <p>Loading customers...</p>
+            </div>
+          ) : (
+            <Table className="min-w-full text-sm md:text-base">
+              <TableHeader>
+                <TableRow className="bg-gray-100">
+                  <TableHead>Customer</TableHead>
+                  <TableHead>Phone</TableHead>
+                  <TableHead>Address</TableHead>
+                  <TableHead className="text-right">Actions</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {filteredBaakis.length > 0 ? (
+                  filteredBaakis.map((item) => (
+                    <TableRow
+                      key={item._id}
+                      role="button"
+                      tabIndex={0}
+                      className="hover:bg-gray-50 cursor-pointer border-b transition-colors"
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" || e.key === " ")
+                          router.push(`/dashboard/baaki/${item._id}`);
+                      }}
                     >
-                      <Button
-                        variant="outline"
-                        size="icon"
-                        className="hover:bg-purple-100 border-gray-300"
-                        onClick={() => {
-                          setEditing(item);
-                          setForm(item);
-                          setOpen(true);
-                        }}
+                      <TableCell className="font-semibold text-gray-800 break-words max-w-[150px] sm:max-w-none">
+                        {item.name}
+                      </TableCell>
+                      <TableCell className="text-gray-800 break-words">
+                        {item.phone}
+                      </TableCell>
+                      <TableCell className="text-gray-800 break-words max-w-[180px] sm:max-w-none">
+                        {item.address}
+                      </TableCell>
+                      <TableCell
+                        className="text-right space-x-2 flex flex-wrap justify-end gap-2"
+                        onClick={(e) => e.stopPropagation()}
                       >
-                        <Pencil className="w-5 h-5 text-purple-600" />
-                      </Button>
-                      <Button
-                        variant="destructive"
-                        size="icon"
-                        className="hover:bg-red-700"
-                        onClick={() => handleDelete(item._id)}
-                      >
-                        <Trash2 className="w-5 h-5" />
-                      </Button>
-                      <Button
-                        variant="outline"
-                        size="icon"
-                        className="hover:bg-indigo-100 border-gray-300"
-                        onClick={() =>
-                          router.push(`/dashboard/baaki/${item._id}`)
-                        }
-                      >
-                        <SquareArrowRight className="w-5 h-5 text-indigo-600" />
-                      </Button>
+                        <Button
+                          variant="outline"
+                          size="icon"
+                          className="hover:bg-purple-100 border-gray-300"
+                          onClick={() => {
+                            setEditing(item);
+                            setForm(item);
+                            setOpen(true);
+                          }}
+                        >
+                          <Pencil className="w-5 h-5 text-purple-600" />
+                        </Button>
+                        <Button
+                          variant="destructive"
+                          size="icon"
+                          className="hover:bg-red-700"
+                          onClick={() => handleDelete(item._id)}
+                        >
+                          <Trash2 className="w-5 h-5" />
+                        </Button>
+                        <Button
+                          variant="outline"
+                          size="icon"
+                          className="hover:bg-indigo-100 border-gray-300"
+                          onClick={() =>
+                            router.push(`/dashboard/baaki/${item._id}`)
+                          }
+                        >
+                          <SquareArrowRight className="w-5 h-5 text-indigo-600" />
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  ))
+                ) : (
+                  <TableRow>
+                    <TableCell
+                      colSpan={5}
+                      className="text-center py-10 text-gray-500 text-base md:text-lg"
+                    >
+                      No baaki records found.
                     </TableCell>
                   </TableRow>
-                ))
-              ) : (
-                <TableRow>
-                  <TableCell
-                    colSpan={5}
-                    className="text-center py-10 text-gray-500 text-base md:text-lg"
-                  >
-                    No baaki records found.
-                  </TableCell>
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
+                )}
+              </TableBody>
+            </Table>
+          )}
         </CardContent>
       </Card>
 
       {/* Add/Edit Dialog */}
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="rounded-xl">
+        <DialogContent className="rounded-xl w-[90%] sm:max-w-md">
           <DialogHeader>
             <DialogTitle className="text-xl text-gray-900 font-bold">
               {editing ? "Edit Customer" : "Add Customer"}
@@ -266,40 +277,6 @@ export default function BaakiDashboard() {
                 {editing ? "Update" : "Save"}
               </Button>
             </div>
-          </div>
-        </DialogContent>
-      </Dialog>
-
-      {/* Customer Details Dialog */}
-      <Dialog open={detailOpen} onOpenChange={setDetailOpen}>
-        <DialogContent className="rounded-xl">
-          <DialogHeader>
-            <DialogTitle className="text-xl font-bold text-gray-900">
-              Customer Details
-            </DialogTitle>
-          </DialogHeader>
-          {selectedCustomer ? (
-            <div className="space-y-3 text-gray-800">
-              <p>
-                <span className="font-semibold">Name:</span>{" "}
-                {selectedCustomer.name}
-              </p>
-              <p>
-                <span className="font-semibold">Phone:</span>{" "}
-                {selectedCustomer.phone}
-              </p>
-              <p>
-                <span className="font-semibold">Address:</span>{" "}
-                {selectedCustomer.address}
-              </p>
-            </div>
-          ) : (
-            <p className="text-gray-500">No customer selected.</p>
-          )}
-          <div className="flex justify-end pt-4">
-            <Button variant="outline" onClick={() => setDetailOpen(false)}>
-              Close
-            </Button>
           </div>
         </DialogContent>
       </Dialog>
