@@ -3,7 +3,6 @@ import { connectToMongo } from "@/models/db";
 import { Admin } from "@/models/userModel";
 import { NextResponse } from "next/server";
 const bcrypt = require("bcrypt");
-// Signup
 
 export async function POST(req, res) {
   try {

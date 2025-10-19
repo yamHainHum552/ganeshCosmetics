@@ -55,6 +55,7 @@ const Dashboard = () => {
         <Card title="Edit Product" link="editProduct" />
         {/* Delete Product */}
         <Card title="Delete Product" link="deleteProduct" />
+        <Card title="Baaki System" link="baaki" />
       </div>
     </div>
   );

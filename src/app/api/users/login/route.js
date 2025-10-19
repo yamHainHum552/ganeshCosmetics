@@ -27,7 +27,7 @@ export async function POST(req, res) {
       userName: admin.userName,
     };
     const token = await jwt.sign(tokenData, process.env.MY_TOKEN, {
-      expiresIn: "1d",
+      expiresIn: "30d",
     });
 
     const response = NextResponse.json({

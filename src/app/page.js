@@ -1,13 +1,11 @@
-import Hero from "@/components/hero/Hero";
-
+import HomePage from "./Homepage";
 export default function Home() {
   return (
     <>
-      <Hero />
+      <HomePage />
     </>
   );
 }
-
 export async function generateMetadata() {
   return {
     title: "Home | GC",
